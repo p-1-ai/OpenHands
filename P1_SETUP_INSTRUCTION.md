@@ -28,6 +28,8 @@ nvm current # Should print "v22.15.0".
 npm -v # Should print "10.9.2".
 ```
 
+- Build the project: `make build`
+
 - Create a `config.toml` at the repo's root folder:
 ```
 [mcp]
