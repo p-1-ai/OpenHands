@@ -91,6 +91,9 @@ You can then configure specific agents to use particular LLM config:
 
 ```toml
 [agent.CodeActAgent]
+llm_config="claude-3-7"
+
+[agent.ArchieAgent]
 llm_config="llama3"
 ```
 
