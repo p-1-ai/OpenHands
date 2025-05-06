@@ -4,16 +4,17 @@
 
 <details>
 <summary>Install `uv`</summary>
-- If not found, install uv:
+  
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh
-````
+```
+
 </details>
 
 <details>
   <summary>Install node/npm</summary>
   
-- Install nodejs (based on your system, pick the right script from https://nodejs.org/en/download), e.g. for linux:
+#### For linux:
 
 ```shell
 # Download and install nvm:
