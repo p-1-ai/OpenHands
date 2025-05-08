@@ -1,9 +1,16 @@
 # Openhands set up instructions with uv
 
 ## Preliminaries
-
 <details>
-<summary>Install `uv`</summary>
+<summary>Install poetry </summary>
+  
+```shell
+curl -sSL https://install.python-poetry.org | python3.12 -
+```
+
+</details>
+<details>
+<summary>Install uv</summary>
   
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -14,7 +21,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 <details>
   <summary>Install node/npm</summary>
   
-#### For linux:
+#### For linux/macOS:
 
 ```shell
 # Download and install nvm:
