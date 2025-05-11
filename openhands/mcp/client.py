@@ -42,6 +42,7 @@ class MCPClient(BaseModel):
                 streams_context = sse_client(
                     url=server_url,
                     timeout=timeout,  # Pass the timeout to sse_client
+                    sse_read_timeout=600,
                 )
                 streams = await self.exit_stack.enter_async_context(streams_context)
                 self.session = await self.exit_stack.enter_async_context(
