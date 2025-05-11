@@ -25,7 +25,11 @@ class MCPClient(BaseModel):
         arbitrary_types_allowed = True
 
     async def connect_sse(
-        self, server_url: str, api_key: str | None = None, timeout: float = 30.0, read_sse_timeout: float = 300.0
+        self,
+        server_url: str,
+        api_key: str | None = None,
+        timeout: float = 30.0,
+        read_sse_timeout: float = 300.0,
     ) -> None:
         """Connect to an MCP server using SSE transport.
 

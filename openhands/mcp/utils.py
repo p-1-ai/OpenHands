@@ -56,7 +56,11 @@ async def create_mcp_clients(
 
             client = MCPClient()
             try:
-                await client.connect_sse(server_url.url, api_key=server_url.api_key, read_sse_timeout=read_sse_timeout)
+                await client.connect_sse(
+                    server_url.url,
+                    api_key=server_url.api_key,
+                    read_sse_timeout=read_sse_timeout,
+                )
                 # Only add the client to the list after a successful connection
                 mcp_clients.append(client)
                 logger.info(f'Connected to MCP server {server_url} via SSE')
