@@ -39,6 +39,7 @@ def convert_mcp_clients_to_tools(mcp_clients: list[MCPClient] | None) -> list[di
 
 async def create_mcp_clients(
     mcp_servers: list[str],
+    read_sse_timeout: float = 300.0,
 ) -> list[MCPClient]:
     mcp_clients: list[MCPClient] = []
     # Initialize SSE connections
@@ -50,7 +51,7 @@ async def create_mcp_clients(
 
             client = MCPClient()
             try:
-                await client.connect_sse(server_url)
+                await client.connect_sse(server_url, read_sse_timeout=read_sse_timeout)
                 # Only add the client to the list after a successful connection
                 mcp_clients.append(client)
                 logger.info(f'Connected to MCP server {server_url} via SSE')
@@ -79,6 +80,7 @@ async def fetch_mcp_tools_from_config(mcp_config: MCPConfig) -> list[dict]:
         logger.debug(f'Creating MCP clients with config: {mcp_config}')
         mcp_clients = await create_mcp_clients(
             mcp_config.mcp_servers,
+            read_sse_timeout=mcp_config.sse_read_timeout,
         )
 
         if not mcp_clients:

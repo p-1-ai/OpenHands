@@ -12,6 +12,7 @@ class MCPConfig(BaseModel):
     """
 
     mcp_servers: List[str] = Field(default_factory=list)
+    sse_read_timeout: float = Field(default=300.0)
 
     model_config = {'extra': 'forbid'}
 
@@ -48,7 +49,10 @@ class MCPConfig(BaseModel):
             mcp_config = MCPConfig.model_validate(data)
             mcp_config.validate_servers()
             # Create the main MCP config
-            mcp_mapping['mcp'] = cls(mcp_servers=mcp_config.mcp_servers)
+            mcp_mapping['mcp'] = cls(
+                mcp_servers=mcp_config.mcp_servers,
+                sse_read_timeout=mcp_config.sse_read_timeout,
+            )
         except ValidationError as e:
             raise ValueError(f'Invalid MCP configuration: {e}')
 

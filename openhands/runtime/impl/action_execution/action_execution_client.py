@@ -335,7 +335,10 @@ class ActionExecutionClient(Runtime):
                 'debug',
                 f'Creating MCP clients with servers: {self.config.mcp.mcp_servers}',
             )
-            self.mcp_clients = await create_mcp_clients(self.config.mcp.mcp_servers)
+            self.mcp_clients = await create_mcp_clients(
+                self.config.mcp.mcp_servers,
+                read_sse_timeout=self.config.mcp.sse_read_timeout,
+            )
         return await call_tool_mcp_handler(self.mcp_clients, action)
 
     async def aclose(self) -> None:
