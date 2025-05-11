@@ -44,7 +44,7 @@ def convert_mcp_clients_to_tools(mcp_clients: list[MCPClient] | None) -> list[di
 
 async def create_mcp_clients(
     sse_servers: list[MCPSSEServerConfig],
-    read_sse_timeout: float = 300.0,
+    sse_read_timeout: float = 300.0,
 ) -> list[MCPClient]:
     mcp_clients: list[MCPClient] = []
     # Initialize SSE connections
@@ -59,7 +59,7 @@ async def create_mcp_clients(
                 await client.connect_sse(
                     server_url.url,
                     api_key=server_url.api_key,
-                    read_sse_timeout=read_sse_timeout,
+                    sse_read_timeout=sse_read_timeout,
                 )
                 # Only add the client to the list after a successful connection
                 mcp_clients.append(client)
@@ -90,7 +90,7 @@ async def fetch_mcp_tools_from_config(mcp_config: MCPConfig) -> list[dict]:
         # Create clients - this will fetch tools but not maintain active connections
         mcp_clients = await create_mcp_clients(
             mcp_config.sse_servers,
-            read_sse_timeout=mcp_config.sse_read_timeout,
+            sse_read_timeout=mcp_config.sse_read_timeout,
         )
 
         if not mcp_clients:

@@ -376,7 +376,7 @@ class ActionExecutionClient(Runtime):
                 MCPSSEServerConfig(
                     url=self.action_execution_server_url.rstrip('/') + '/sse',
                     api_key=None,
-                    read_sse_timeout=self.config.mcp.sse_read_timeout,
+                    sse_read_timeout=self.config.mcp.sse_read_timeout,
                 )
             )
             self.log(

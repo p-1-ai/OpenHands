@@ -13,7 +13,7 @@ class MCPSSEServerConfig(BaseModel):
 
     url: str
     api_key: str | None = None
-    read_sse_timeout: float = Field(default=300.0)
+    sse_read_timeout: float = Field(default=300.0)
 
 
 class MCPStdioServerConfig(BaseModel):
@@ -85,7 +85,7 @@ class MCPConfig(BaseModel):
                         servers.append(MCPSSEServerConfig(**server))
                     else:
                         # Convert string URLs to MCPSSEServerConfig objects with no API key
-                        servers.append(MCPSSEServerConfig(url=server))
+                        servers.append(MCPSSEServerConfig(url=server, sse_read_timeout=data["sse_read_timeout"]))
                 data['sse_servers'] = servers
 
             # Convert all entries in stdio_servers to MCPStdioServerConfig objects

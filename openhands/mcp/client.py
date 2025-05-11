@@ -29,7 +29,7 @@ class MCPClient(BaseModel):
         server_url: str,
         api_key: str | None = None,
         timeout: float = 30.0,
-        read_sse_timeout: float = 300.0,
+        sse_read_timeout: float = 300.0,
     ) -> None:
         """Connect to an MCP server using SSE transport.
 
@@ -44,7 +44,7 @@ class MCPClient(BaseModel):
 
         try:
             logger.info(
-                f'Timeout in SSE for {server_url} set to: {read_sse_timeout} sec'
+                f'Timeout in SSE for {server_url} set to: {sse_read_timeout} sec'
             )
 
             # Use asyncio.wait_for to enforce the timeout
@@ -53,7 +53,7 @@ class MCPClient(BaseModel):
                     url=server_url,
                     headers={'Authorization': f'Bearer {api_key}'} if api_key else None,
                     timeout=timeout,
-                    sse_read_timeout=read_sse_timeout,
+                    sse_read_timeout=sse_read_timeout,
                 )
                 streams = await self.exit_stack.enter_async_context(streams_context)
                 self.session = await self.exit_stack.enter_async_context(
