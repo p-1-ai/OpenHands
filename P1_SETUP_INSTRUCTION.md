@@ -68,11 +68,8 @@ make build
 - If you want to use MCP tools, create a `config.toml` at the repo's root folder; you can comment out servers to disable them:
 
 ```toml
-[mcp]
-mcp_servers=[
-  "http://localhost:3003/sse",
-  "http://localhost:8888/sse",
-]
+[[mcp.sse_servers]]
+url = "http://localhost:8123"
 ```
 
 - You can add more MCP https servers by appending to the list `mcp_servers`
@@ -91,9 +88,12 @@ model="claude-3-7-sonnet-20250219"
 api_key="YYYY"
 
 [llm.llama3]
-model="openai/llama3"
+model="hosted_vllm/llama3"
 base_url="http://123.123.123.123:8888/v1"
+native_tool_calling = 'true'
 ```
+
+Note that for self-hosted vllm models, you should specify `native_tool_calling = 'true'`.
 
 You can then configure specific agents to use particular LLM config:
 
