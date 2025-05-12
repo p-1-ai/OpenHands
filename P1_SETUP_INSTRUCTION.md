@@ -1,22 +1,6 @@
 # Openhands set up instructions with uv
 
 ## Preliminaries
-<details>
-<summary>Install poetry </summary>
-  
-```shell
-curl -sSL https://install.python-poetry.org | python3.12 -
-```
-
-</details>
-<details>
-<summary>Install uv</summary>
-  
-```shell
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-</details>
 
 <details>
   <summary>Install node/npm</summary>
@@ -39,6 +23,23 @@ nvm current # Should print "v22.15.0".
 
 # Verify npm version:
 npm -v # Should print "10.9.2".
+```
+
+</details>
+
+<details>
+<summary>[optional] Install poetry </summary>
+  
+```shell
+curl -sSL https://install.python-poetry.org | python3.12 -
+```
+
+</details>
+<details>
+<summary>Install uv</summary>
+  
+```shell
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 </details>
