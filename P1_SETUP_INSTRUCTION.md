@@ -95,7 +95,9 @@ base_url="http://123.123.123.123:8888/v1"
 native_tool_calling = 'true'
 ```
 
-Note that for self-hosted vllm models, you should specify `native_tool_calling = 'true'`.
+> [!NOTE]
+> For self-hosted vllm models that support tool calling (llama3, qwen), you should specify `native_tool_calling = 'true'`.
+> Otherwise, OH will inject a long prompt for in-context learning and emulate tool calling on its own.
 
 You can then configure specific agents to use particular LLM config:
 
