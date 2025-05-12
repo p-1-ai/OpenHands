@@ -37,7 +37,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 </details>
 
 <details>
-<summary>[optional] Install poetry </summary>
+<summary>Install poetry </summary>
   
 ```shell
 curl -sSL https://install.python-poetry.org | python3.12 -
