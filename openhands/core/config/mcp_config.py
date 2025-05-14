@@ -42,8 +42,6 @@ class MCPConfig(BaseModel):
 
     sse_servers: list[MCPSSEServerConfig] = Field(default_factory=list)
     stdio_servers: list[MCPStdioServerConfig] = Field(default_factory=list)
-    sse_read_timeout: float = Field(default=300.0)
-
     model_config = {'extra': 'forbid'}
 
     def validate_servers(self) -> None:
@@ -85,7 +83,7 @@ class MCPConfig(BaseModel):
                         servers.append(MCPSSEServerConfig(**server))
                     else:
                         # Convert string URLs to MCPSSEServerConfig objects with no API key
-                        servers.append(MCPSSEServerConfig(url=server, sse_read_timeout=data["sse_read_timeout"]))
+                        servers.append(MCPSSEServerConfig(url=server,sse_read_timeout=300.0))
                 data['sse_servers'] = servers
 
             # Convert all entries in stdio_servers to MCPStdioServerConfig objects
@@ -102,7 +100,6 @@ class MCPConfig(BaseModel):
             mcp_mapping['mcp'] = cls(
                 sse_servers=mcp_config.sse_servers,
                 stdio_servers=mcp_config.stdio_servers,
-                sse_read_timeout=mcp_config.sse_read_timeout,
             )
         except ValidationError as e:
             raise ValueError(f'Invalid MCP configuration: {e}')
