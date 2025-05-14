@@ -13,6 +13,7 @@ class MCPSSEServerConfig(BaseModel):
 
     url: str
     api_key: str | None = None
+    sse_read_timeout: float = Field(default=300.0)
 
 
 class MCPStdioServerConfig(BaseModel):
@@ -41,7 +42,6 @@ class MCPConfig(BaseModel):
 
     sse_servers: list[MCPSSEServerConfig] = Field(default_factory=list)
     stdio_servers: list[MCPStdioServerConfig] = Field(default_factory=list)
-
     model_config = {'extra': 'forbid'}
 
     def validate_servers(self) -> None:
@@ -83,7 +83,7 @@ class MCPConfig(BaseModel):
                         servers.append(MCPSSEServerConfig(**server))
                     else:
                         # Convert string URLs to MCPSSEServerConfig objects with no API key
-                        servers.append(MCPSSEServerConfig(url=server))
+                        servers.append(MCPSSEServerConfig(url=server,sse_read_timeout=300.0))
                 data['sse_servers'] = servers
 
             # Convert all entries in stdio_servers to MCPStdioServerConfig objects
