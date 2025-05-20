@@ -25,7 +25,11 @@ class MCPClient(BaseModel):
         arbitrary_types_allowed = True
 
     async def connect_sse(
-        self, server_url: str, api_key: str | None = None, timeout: float = 30.0
+        self,
+        server_url: str,
+        api_key: str | None = None,
+        timeout: float = 30.0,
+        sse_read_timeout: float = 300.0,
     ) -> None:
         """Connect to an MCP server using SSE transport.
 
@@ -39,12 +43,17 @@ class MCPClient(BaseModel):
             await self.disconnect()
 
         try:
+            logger.info(
+                f'Timeout in SSE for {server_url} set to: {sse_read_timeout} sec'
+            )
+
             # Use asyncio.wait_for to enforce the timeout
             async def connect_with_timeout():
                 streams_context = sse_client(
                     url=server_url,
                     headers={'Authorization': f'Bearer {api_key}'} if api_key else None,
                     timeout=timeout,
+                    sse_read_timeout=sse_read_timeout,
                 )
                 streams = await self.exit_stack.enter_async_context(streams_context)
                 self.session = await self.exit_stack.enter_async_context(
